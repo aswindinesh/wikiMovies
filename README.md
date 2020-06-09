@@ -6,3 +6,6 @@ this one scapes all tables in a given url so basically movies are sorted year-wi
 
 codev1 scrapes list of movies as per alphabets
 codev2 scrapes table cells from urls
+
+
+Main Aim is to create a dataset of all movies ever made, or just their names and year
