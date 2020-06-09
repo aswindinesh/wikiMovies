@@ -20,7 +20,7 @@ for year in range(1986,2029):
         tables = soup.findAll("table", {"class": "wikitable"})
         page = os.path.split(wiki)[1]
         
-        os.mkdir("./{}".format(page))
+        os.mkdir("./yearwise dataset/{}".format(page))
         
         for tn, table in enumerate(tables):
 
@@ -28,16 +28,10 @@ for year in range(1986,2029):
             row_lengths = [len(r.findAll(['th', 'td'])) for r in rows]
             ncols = max(row_lengths)
             nrows = len(rows)
-            data = []
-            for i in range(nrows):
-                rowD = []
-                for j in range(ncols):
-                    rowD.append('')
-                data.append(rowD)
+            data = [[''] * ncols for i in range(nrows)]
 
             for i in range(len(rows)):
                 row = rows[i]
-                rowD = []
                 cells = row.findAll(["td", "th"])
                 for j in range(len(cells)):
                     cell = cells[j]
@@ -45,16 +39,19 @@ for year in range(1986,2029):
                     cspan = int(cell.get('colspan', 1))
                     rspan = int(cell.get('rowspan', 1))
                     l = 0
-                    for k in range(rspan):
-                        while data[i + k][j + l]:
-                            l += 1
-                        for m in range(cspan):
-                            cell_n = j + l + m
-                            row_n = i + k
-                            cell_n = min(cell_n, len(data[row_n])-1)
-                            data[row_n][cell_n] += cell.text
-
-                data.append(rowD)
+                    try:
+                        for k in range(rspan):
+                            while data[i + k][j + l]:
+                                l += 1
+                            for m in range(cspan):
+                                cell_n = j + l + m
+                                row_n = i + k
+                                # in some cases the colspan can overflow the table, in those cases just get the last item
+                                cell_n = min(cell_n, len(data[row_n])-1)
+                                data[row_n][cell_n] += cell.text
+                                print(cell.text)
+                    except IndexError: 
+                        continue
         
             fname = './{}/output_{}_t{}.csv'.format(page,page, tn)
             f = codecs.open(fname, 'w',encoding="utf-8")
