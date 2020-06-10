@@ -7,8 +7,9 @@ import codecs
 import time
 
 film_region=["American","Bangladeshi","British","Canadian","Chinese","Filipino","Assamese","Indian_Bengali","Bollywood","Kannada","Gujarati","Malayalam","Marathi","Punjabi","Tamil","Telugu","Tulu","Japanese","Russian","Australian"]
-
+os.mkdir("./yearwise dataset")
 for year in range(1986,2029):
+    os.mkdir(""./yearwise dataset/{}".format(year))
     for j in film_region:
         wiki = "https://en.m.wikipedia.org/wiki/List_of_{}_films_of_{}".format(j,year)
         header = {
@@ -53,7 +54,7 @@ for year in range(1986,2029):
                     except IndexError: 
                         continue
         
-            fname = './{}/output_{}_t{}.csv'.format(page,page, tn)
+            fname = './yearwise dataset/{}/{}/output_{}_t{}.csv'.format(year,page,page, tn)
             f = codecs.open(fname, 'w',encoding="utf-8")
             for i in range(nrows):
                 rowStr = '\t'.join(data[i])
