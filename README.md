@@ -5,7 +5,9 @@ the current updated version is codev3
 this one scapes all tables in a given url so basically movies are sorted year-wise and country-wise but the dataset won't be clean.
 
 codev1 scrapes list of movies as per alphabets
+
 codev2 scrapes table cells from urls
 
+traverse.sh traverses through all the diretories and subdirectories in the dataset and creates a consolidated CSV file per year per language.
 
 Main Aim is to create a dataset of all movies ever made, or just their names and year
